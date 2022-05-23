@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.empresa.test.dao.UsuarioDao;
+import co.empresa.test.dao.UsuarioDaoFactory;
+import co.empresa.test.dao.UsuarioDaoMySQL;
 import co.empresa.test.modelo.Usuario;
 
 /**
@@ -31,13 +33,15 @@ public class UsuarioServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+ 
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
-	public void init(ServletConfig config) throws ServletException {
+	public void init() throws ServletException {
 		// TODO Auto-generated method stub
-		this.usuarioDao = new UsuarioDao();
+		
+		String type= getServletContext().getInitParameter("type");
+		this.usuarioDao =  UsuarioDaoFactory.getUsuarioDao(type);
 	}
 
 	/**
@@ -65,6 +69,10 @@ public class UsuarioServlet extends HttpServlet {
 		case "/update":
 			actualizarUsuario(request, response);
 			break;
+		case "/enviarCorreo":
+			enviarCorreo(request, response);
+			break;
+		
 		default:
 			listUsuarios(request, response);
 			break;
@@ -148,5 +156,18 @@ public class UsuarioServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("usuarioList.jsp");
 		dispatcher.forward(request, response);
 	}
+	protected void enviarCorreo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		int id = Integer.parseInt(request.getParameter("id"));
+		
+		Usuario usuarioActual = usuarioDao.select(id);
+		request.setAttribute("usuario", usuarioActual);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("enviarMensaje.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	
+	
 
 }

@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Data //metodos get y set
+@NoArgsConstructor //constructor vacio
+@AllArgsConstructor //constructor completo
 
 
 public class Usuario implements Serializable {

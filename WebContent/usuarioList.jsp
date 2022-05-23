@@ -36,6 +36,7 @@
 				<th>Email</th>
 				<th>Pais</th>
 				<th>Acciones</th>
+				<th>Enviar Correo</th>
 			</tr>
 		</thead>
 		
@@ -59,7 +60,9 @@
 			<td>
 				<a href="edit?id=<c:out value='${usuario.id}' />" >Editar</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="delete?id=<c:out value='${usuario.id}'/>" >Eliminar</a>
 			</td>
-			
+			<td>
+				<a href="enviarCorreo?id=<c:out value='${usuario.id}' />" >Correo</a>
+			</td>
 			
 			</tr>
 		
